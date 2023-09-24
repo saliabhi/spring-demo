@@ -1,5 +1,6 @@
 package com.booking.springdemo.controller.advice;
 
+import com.booking.springdemo.exception.HotelNotFoundException;
 import com.booking.springdemo.exception.IncorrectHotelIdException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +14,14 @@ public class HelloWorldControllerAdvice {
     @ResponseBody
     @ExceptionHandler(IncorrectHotelIdException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String IncorrectHotelIdHandler(Exception ex) {
+    String incorrectHotelIdHandler(Exception ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(HotelNotFoundException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    String hotelNotFoundHandler(Exception ex) {
         return ex.getMessage();
     }
 }
